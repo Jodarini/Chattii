@@ -10,8 +10,13 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
+model Message {
+    id        String   @id @default(cuid())
+    createdAt DateTime @default(now())
+    content   String
+    User      User?    @relation(fields: [userId, userName], references: [id, name])
+    userId    String?
+    userName  String?  @map("name")
 }
 
 // Necessary for Next auth
@@ -43,12 +48,15 @@ model Session {
 
 model User {
     id            String    @id @default(cuid())
-    name          String?
+    name          String
     email         String?   @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
+    messages      Message[]
+
+    @@unique([id, name])
 }
 
 model VerificationToken {
