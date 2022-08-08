@@ -1,17 +1,25 @@
 import { createRouter } from "./context";
 import { z } from "zod";
+import { Message } from "@prisma/client";
+import { Subscription, TRPCError } from "@trpc/server";
+import { EventEmitter } from "events";
+
+const ee = new EventEmitter();
 
 export const exampleRouter = createRouter()
-	.query("hello", {
-		input: z
-			.object({
-				text: z.string().nullish(),
-			})
-			.nullish(),
-		resolve({ input }) {
-			return {
-				greeting: `Hello ${input?.text ?? "world"}`,
-			};
+	.subscription("onAdd", {
+		resolve() {
+			return new Subscription<Message>(emit => {
+				const onAdd = (data: Message) => {
+					emit.data(data);
+				};
+
+				ee.on("add", onAdd);
+
+				return () => {
+					ee.off("add", onAdd);
+				};
+			});
 		},
 	})
 	.query("getAll", {
@@ -19,7 +27,7 @@ export const exampleRouter = createRouter()
 			return await ctx.prisma.message.findMany();
 		},
 	})
-	.mutation("sendMessage", {
+	.mutation("add", {
 		input: z.object({
 			content: z.string(),
 			userName: z.string(),
@@ -30,6 +38,7 @@ export const exampleRouter = createRouter()
 					...input,
 				},
 			});
+			ee.emit("add", message);
 			return { success: true, content: message };
 		},
 	});

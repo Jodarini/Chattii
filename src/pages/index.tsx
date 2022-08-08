@@ -94,14 +94,44 @@ const Chat: React.FC = () => {
 	const [messages, setMessages] = useState<string>("");
 	const [chat, setChat] = useState<string>("");
 
+	const messages2 = trpc.useQuery(["example.getAll"]);
+	const [subMessages, setSubMessages] = useState<
+		typeof messages2["data"]
+	>(() => {
+		return messages2.data;
+	});
+
+	trpc.useSubscription(["example.onAdd"], {
+		onNext(message) {
+			setSubMessages(msgs => [...(msgs || []), message]);
+		},
+	});
+
 	const getAll = trpc.useQuery(["example.getAll"]);
 
 	const mutation = trpc.useMutation(
 		[
-			"example.sendMessage", // name of the mutation
+			"example.add", // name of the mutation
 		]
 		// { onSuccess: () => setMessages("") }
 	);
+	const addPost = trpc.useMutation("example.add");
+
+	// async function sendMessage2(
+	// 	e: React.FormEvent<HTMLFormElement>
+	// ) {
+	// 	e.preventDefault();
+
+	// 	if (messages.length === 0) {
+	// 		return;
+	// 	}
+	// 	const input = {
+	// 		content: messages,
+	// 		userName: session?.user?.name || "Anonymous",
+	// 	};
+	// 	await addPost.mutateAsync(input);
+	// 	setMessages("");
+	// }
 
 	const sendMessage = (
 		e: React.FormEvent<HTMLFormElement>
