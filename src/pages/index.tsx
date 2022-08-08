@@ -8,6 +8,7 @@ import {
 	signIn,
 	signOut,
 } from "next-auth/react";
+import { string } from "zod";
 
 type TechnologyCardProps = {
 	name: string;
@@ -95,6 +96,7 @@ const Chat: React.FC = () => {
 	const [chat, setChat] = useState<string>("");
 
 	const messages2 = trpc.useQuery(["example.getAll"]);
+
 	const [subMessages, setSubMessages] = useState<
 		typeof messages2["data"]
 	>(() => {
@@ -106,6 +108,19 @@ const Chat: React.FC = () => {
 			setSubMessages(msgs => [...(msgs || []), message]);
 		},
 	});
+
+	const addMessage = trpc.useMutation(["example.add"]);
+	const [message, setMessage] = useState<string>("");
+	const onAdd = async (
+		e: React.FormEvent<HTMLFormElement>
+	) => {
+		e.preventDefault();
+		await addMessage.mutate({
+			content: messages,
+			userName: session?.user?.name || "Anonymous",
+		});
+		setMessages("");
+	};
 
 	const getAll = trpc.useQuery(["example.getAll"]);
 
@@ -156,8 +171,8 @@ const Chat: React.FC = () => {
 	return (
 		<>
 			<div className="p-3 min-w-full bg-slate-800 mb-4">
-				{getAll.data ? (
-					getAll.data.map(element => {
+				{subMessages ? (
+					subMessages.map(element => {
 						return (
 							<p key={element.id}>
 								{element.userName + ": "}
@@ -171,7 +186,7 @@ const Chat: React.FC = () => {
 					<p>Loading..</p>
 				)}
 			</div>
-			<form onSubmit={sendMessage} className="w-full flex">
+			<form onSubmit={onAdd} className="w-full flex">
 				<input
 					type="text"
 					value={messages}

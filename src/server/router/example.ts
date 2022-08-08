@@ -7,21 +7,6 @@ import { EventEmitter } from "events";
 const ee = new EventEmitter();
 
 export const exampleRouter = createRouter()
-	.subscription("onAdd", {
-		resolve() {
-			return new Subscription<Message>(emit => {
-				const onAdd = (data: Message) => {
-					emit.data(data);
-				};
-
-				ee.on("add", onAdd);
-
-				return () => {
-					ee.off("add", onAdd);
-				};
-			});
-		},
-	})
 	.query("getAll", {
 		async resolve({ ctx }) {
 			return await ctx.prisma.message.findMany();
@@ -40,5 +25,20 @@ export const exampleRouter = createRouter()
 			});
 			ee.emit("add", message);
 			return { success: true, content: message };
+		},
+	})
+	.subscription("onAdd", {
+		resolve() {
+			return new Subscription<Message>(emit => {
+				const onAdd = (data: Message) => {
+					emit.data(data);
+				};
+
+				ee.on("add", onAdd);
+
+				return () => {
+					ee.off("add", onAdd);
+				};
+			});
 		},
 	});
