@@ -41,8 +41,8 @@ function getEndingLink() {
 		});
 	}
 	const client = createWSClient({
-		url: `ws://localhost:3001`,
-	});
+		url: WS_URL,
+	 });
 	return wsLink<AppRouter>({
 		client,
 	});

@@ -32,7 +32,7 @@ function getEndingLink() {
         });
     }
     const client = (0, wsLink_1.createWSClient)({
-        url: `ws://localhost:3001`,
+        url: WS_URL,
     });
     return (0, wsLink_1.wsLink)({
         client,
