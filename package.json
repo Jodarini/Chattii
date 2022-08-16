@@ -11,7 +11,7 @@
 		"dev": "run-p dev:*",
 		"prod:ws": "ts-node-dev --project tsconfig.server.json --respawn --transpile-only src/server/prodServer.ts",
 		"prod:next": "next build",
-		"build": "run-p build:*",
+		"build": "run-p prod:*",
 		"start": "next start",
 		"lint": "next lint",
 		"postinstall": "prisma generate"
