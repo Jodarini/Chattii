@@ -7,7 +7,7 @@
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"build": "next build",
-		"start": "next start",
+		"start": "next start cross-env NODE_ENV=production node src/server/prodServer.js",
 		"lint": "next lint",
 		"postinstall": "prisma generate"
 	},
@@ -18,7 +18,6 @@
 		"@trpc/next": "^9.26.2",
 		"@trpc/react": "^9.26.2",
 		"@trpc/server": "^9.26.2",
-		"express": "^4.18.1",
 		"next": "12.2.1",
 		"next-auth": "^4.10.2",
 		"node-fetch": "2.6.1",
