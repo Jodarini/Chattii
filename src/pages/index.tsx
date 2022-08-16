@@ -2,13 +2,12 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
 import React, { useState } from "react";
-import Image from "next/image";
+import Image, { ImageLoader } from "next/image";
 import {
 	useSession,
 	signIn,
 	signOut,
 } from "next-auth/react";
-import { string } from "zod";
 
 type TechnologyCardProps = {
 	name: string;
@@ -21,6 +20,7 @@ const HomeComponent = () => {
 	const myLoader = () => {
 		return session?.user?.image;
 	};
+	console.count("HomeComponent");
 
 	if (session) {
 		return (
@@ -31,7 +31,7 @@ const HomeComponent = () => {
 						className="rounded-full "
 						width={40}
 						height={40}
-						loader={myLoader as any}
+						loader={myLoader as ImageLoader}
 						src={session.user?.image || ""}
 						alt=""
 					/>
@@ -77,14 +77,6 @@ const Home: NextPage = () => {
 				</h1>
 
 				<HomeComponent />
-				{/* <div className="pt-6 text-2xl text-blue-500 flex justify-center items-center w-full">
-					<br />
-					{hello.data ? (
-						<p>{hello.data.greeting}</p>
-					) : (
-						<p>Loading..</p>
-					)}
-				</div> */}
 			</main>
 		</>
 	);
@@ -93,9 +85,10 @@ const Home: NextPage = () => {
 const Chat: React.FC = () => {
 	const { data: session } = useSession();
 	const [messages, setMessages] = useState<string>("");
-	const [chat, setChat] = useState<string>("");
 
-	const messages2 = trpc.useQuery(["example.getAll"]);
+	const messages2 = trpc.useQuery(["example.getAll"], {
+		refetchOnWindowFocus: false,
+	});
 
 	const [subMessages, setSubMessages] = useState<
 		typeof messages2["data"]
@@ -110,7 +103,6 @@ const Chat: React.FC = () => {
 	});
 
 	const addMessage = trpc.useMutation(["example.add"]);
-	const [message, setMessage] = useState<string>("");
 	const onAdd = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
@@ -122,51 +114,9 @@ const Chat: React.FC = () => {
 		setMessages("");
 	};
 
-	const getAll = trpc.useQuery(["example.getAll"]);
-
-	const mutation = trpc.useMutation(
-		[
-			"example.add", // name of the mutation
-		]
-		// { onSuccess: () => setMessages("") }
-	);
-	const addPost = trpc.useMutation("example.add");
-
-	// async function sendMessage2(
-	// 	e: React.FormEvent<HTMLFormElement>
-	// ) {
-	// 	e.preventDefault();
-
-	// 	if (messages.length === 0) {
-	// 		return;
-	// 	}
-	// 	const input = {
-	// 		content: messages,
-	// 		userName: session?.user?.name || "Anonymous",
-	// 	};
-	// 	await addPost.mutateAsync(input);
-	// 	setMessages("");
-	// }
-
-	const sendMessage = (
-		e: React.FormEvent<HTMLFormElement>
-	) => {
-		e.preventDefault();
-
-		if (messages.length === 0) {
-			return;
-		}
-		setChat(messages);
-
-		mutation.mutate({
-			content: messages,
-			userName: session?.user?.name || "Anonymous",
-		});
-
-		setMessages("");
-
-		console.log("Message sent:", messages);
-	};
+	const mutation = trpc.useMutation([
+		"example.add", // name of the mutation
+	]);
 
 	return (
 		<>
