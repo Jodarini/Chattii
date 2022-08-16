@@ -10,7 +10,7 @@
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"build": "next build ",
-		"start": "ts-node src/server/prodServer.ts next start",
+		"start": "next start",
 		"lint": "next lint",
 		"postinstall": "prisma generate"
 	},
