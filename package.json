@@ -7,7 +7,7 @@
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"build": "next build",
-		"start": "dist/server/prodServer.js next start",
+		"start": "node dist/server/prodServer.js",
 		"lint": "next lint",
 		"postinstall": "prisma generate"
 	},
