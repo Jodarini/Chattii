@@ -2,7 +2,6 @@
 	"name": "chattii",
 	"version": "0.1.0",
 	"private": true,
-	"type": "module",
 	"engines": {
 		"node": "16.15.x"
 	},
@@ -10,7 +9,7 @@
 		"dev:ws": "ts-node-dev --project tsconfig.server.json --respawn --transpile-only src/server/wssDevServer.ts",
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
-		"prod:ws": "ts-node --transpile-only src/server/prodServer.ts",
+		"prod:ws": "ts-node-esm src/server/prodServer.ts",
 		"prod:next": "next build",
 		"build": "run-p prod:*",
 		"start": "next start",
