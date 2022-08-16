@@ -10,7 +10,7 @@
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"prod:next": "next build",
-		"prod:ws": "node src/server/prodServer.ts",
+		"prod:ws": "ts-node src/server/prodServer.ts",
 		"build": "run-p prod:*",
 		"start": "next start",
 		"lint": "next lint",
