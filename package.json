@@ -2,6 +2,9 @@
 	"name": "chattii",
 	"version": "0.1.0",
 	"private": true,
+	"engines": {
+		"node": "12.17.x"
+	},
 	"scripts": {
 		"dev:ws": "ts-node-dev --project tsconfig.server.json --respawn --transpile-only src/server/wssDevServer.ts",
 		"dev:next": "next dev",
