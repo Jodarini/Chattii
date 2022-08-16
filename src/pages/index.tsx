@@ -20,7 +20,6 @@ const HomeComponent = () => {
 	const myLoader = () => {
 		return session?.user?.image;
 	};
-	console.count("HomeComponent");
 
 	if (session) {
 		return (
