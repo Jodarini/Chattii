@@ -10,7 +10,7 @@
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"prod:next": "next build",
-		"prod:ws": "ts-node --project tsconfig.server.json --respawn --transpile-only src/server/prodServer.ts",
+		"prod:ws": "ts-node --project tsconfig.server.json src/server/prodServer.ts",
 		"prod:start": "next start",
 		"build": "run-p prod:*",
 		"lint": "next lint",
