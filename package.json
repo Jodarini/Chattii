@@ -3,14 +3,14 @@
 	"version": "0.1.0",
 	"private": true,
 	"engines": {
-		"node": "14.17.x"
+		"node": "16.15.x"
 	},
 	"scripts": {
 		"dev:ws": "ts-node-dev --project tsconfig.server.json --respawn --transpile-only src/server/wssDevServer.ts",
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"build": "next build ",
-		"start": "node src/server/prodServer.ts next start",
+		"start": "ts-node src/server/prodServer.ts next start",
 		"lint": "next lint",
 		"postinstall": "prisma generate"
 	},
@@ -28,6 +28,7 @@
 		"react-dom": "18.2.0",
 		"react-query": "3",
 		"superjson": "^1.9.1",
+		"ts-node": "^10.9.1",
 		"ws": "^8.8.1",
 		"zod": "^3.17.10"
 	},
