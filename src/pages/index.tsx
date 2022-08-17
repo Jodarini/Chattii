@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Image, { ImageLoader } from "next/image";
 import {
 	useSession,
@@ -23,7 +23,7 @@ const HomeComponent = () => {
 
 	if (session) {
 		return (
-			<div className="flex flex-col w-max h-max">
+			<div className="flex flex-col w-full h-full">
 				<div className="flex flex-row items-center justify-center gap-1">
 					Hello {session.user?.name}!
 					<Image
@@ -82,6 +82,7 @@ const Home: NextPage = () => {
 };
 
 const Chat: React.FC = () => {
+	const chatRef = useRef<HTMLDivElement>(null);
 	const { data: session } = useSession();
 	const [messages, setMessages] = useState<string>("");
 
@@ -101,7 +102,19 @@ const Chat: React.FC = () => {
 		},
 	});
 
-	const addMessage = trpc.useMutation(["example.add"]);
+	const scrollToBottom = () => {
+		console.log(chatRef.current);
+		if (chatRef.current) {
+			chatRef.current.scrollIntoView({ behavior: "smooth" });
+			console.log("scrolled");
+		}
+	};
+
+	const addMessage = trpc.useMutation(["example.add"], {
+		onSuccess() {
+			scrollToBottom();
+		},
+	});
 	const onAdd = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
@@ -115,7 +128,10 @@ const Chat: React.FC = () => {
 
 	return (
 		<>
-			<div className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-max break-words md:max-w-md">
+			<div
+				ref={chatRef}
+				className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-full break-words md:max-w-md"
+			>
 				{subMessages ? (
 					subMessages.map(element => {
 						return (
