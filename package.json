@@ -9,7 +9,6 @@
 		"build:2-prisma": "prisma generate",
 		"build:3-next": "cross-env NODE_ENV=production next build",
 		"build:4-server": "tsc --project tsconfig.server.json",
-		"build:5-client": "cross-env NODE_ENV=production node dist/server/prodServer.js",
 		"build": "run-s build:*",
 		"start": "next start -p $PORT && cross-env NODE_ENV=production node dist/server/prodServer.js",
 		"lint": "next lint",
