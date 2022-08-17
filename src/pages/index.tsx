@@ -117,7 +117,6 @@ const Chat: React.FC = () => {
 					setMessages("");
 					console.log("success");
 					chatRef.current?.scrollIntoView();
-					
 				},
 			}
 		);
@@ -125,16 +124,13 @@ const Chat: React.FC = () => {
 
 	return (
 		<>
-			<div
-				ref={chatRef}
-				className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-full h-full break-words md:max-w-md"
-			>
+			<div className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-full h-full break-words md:max-w-md">
 				{subMessages ? (
 					subMessages.map(element => {
 						return (
 							<p key={element.id}>
 								{element.userName + ": "}
-								<span className=" text-gray-400 ">
+								<span ref={chatRef} className=" text-gray-400 ">
 									{element.content + "\n"}
 								</span>
 							</p>
