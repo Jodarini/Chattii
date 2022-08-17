@@ -11,7 +11,7 @@
 		"build": "run-s build:*",
 		"start": "next start",
 		"lint": "next lint",
-		"postinstall": "prisma generate cross-env NODE_ENV=production node dist/server/prodServer.js",
+		"postinstall": "prisma generate",
 		"ts-node": "ts-node --compiler-options \"{\"module\": \"commonjs\"}\""
 	},
 	"dependencies": {
