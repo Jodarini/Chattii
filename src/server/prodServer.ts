@@ -23,6 +23,7 @@ app.prepare().then(() => {
 			res.end();
 			return;
 		}
+
 		const parsedUrl = parse(req.url!, true);
 		handle(req, res, parsedUrl);
 	});
