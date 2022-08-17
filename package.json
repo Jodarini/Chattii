@@ -10,6 +10,7 @@
 		"build:4-server": "tsc --project tsconfig.server.json",
 		"build": "run-s build:*",
 		"start": "next start -p $PORT",
+		"poststart": "cross-env NODE_ENV=production node dist/server/prodServer.js",
 		"lint": "next lint",
 		"postinstall": "prisma generate",
 		"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
