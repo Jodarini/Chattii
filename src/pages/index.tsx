@@ -119,18 +119,26 @@ const Chat: React.FC = () => {
 		e: React.FormEvent<HTMLFormElement>
 	) => {
 		e.preventDefault();
-		await addMessage.mutate({
-			content: messages,
-			userName: session?.user?.name || "Anonymous",
-		});
-		setMessages("");
+		await addMessage.mutate(
+			{
+				content: messages,
+				userName: session?.user?.name || "Anonymous",
+			},
+			{
+				onSuccess: () => {
+					setMessages("");
+					console.log("success");
+					chatRef.current?.scrollIntoView();
+				},
+			}
+		);
 	};
 
 	return (
 		<>
 			<div
 				ref={chatRef}
-				className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-full break-words md:max-w-md"
+				className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-full h-full break-words md:max-w-md"
 			>
 				{subMessages ? (
 					subMessages.map(element => {
