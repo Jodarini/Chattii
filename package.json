@@ -8,11 +8,10 @@
 		"dev": "run-p dev:*",
 		"prestart": "cross-env NODE_ENV=production next build",
 		"build:4-server": "tsc --project tsconfig.server.json",
-		"build:5": "cross-env NODE_ENV=production node dist/server/prodServer.js",
 		"build": "run-s build:*",
 		"start": "next start",
 		"lint": "next lint",
-		"postinstall": "prisma generate",
+		"postinstall": "prisma generate cross-env NODE_ENV=production node dist/server/prodServer.js",
 		"ts-node": "ts-node --compiler-options \"{\"module\": \"commonjs\"}\""
 	},
 	"dependencies": {
