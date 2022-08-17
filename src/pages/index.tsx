@@ -23,7 +23,7 @@ const HomeComponent = () => {
 
 	if (session) {
 		return (
-			<div className="flex flex-col w-max">
+			<div className="flex flex-col w-max h-max">
 				<div className="flex flex-row items-center justify-center gap-1">
 					Hello {session.user?.name}!
 					<Image
@@ -105,7 +105,6 @@ const Chat: React.FC = () => {
 	const onAdd = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
-
 		e.preventDefault();
 		await addMessage.mutate({
 			content: messages,
@@ -138,12 +137,12 @@ const Chat: React.FC = () => {
 					value={messages}
 					onChange={e => setMessages(e.target.value)}
 					className="text-slate-800 w-full"
-					disabled={!session || messages.length === 0}
 				/>
 				<input
 					type="submit"
 					value="Send"
 					className=" bg-amber-500 p-2 rounded ml-2"
+					disabled={!session || messages.length === 0}
 				/>
 				{addMessage.error && (
 					<p>Error: {addMessage.error.message}</p>
