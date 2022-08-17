@@ -23,7 +23,7 @@ const HomeComponent = () => {
 
 	if (session) {
 		return (
-			<div className="flex flex-col">
+			<div className="flex flex-col w-max">
 				<div className="flex flex-row items-center justify-center gap-1">
 					Hello {session.user?.name}!
 					<Image
@@ -113,13 +113,9 @@ const Chat: React.FC = () => {
 		setMessages("");
 	};
 
-	const mutation = trpc.useMutation([
-		"example.add", // name of the mutation
-	]);
-
 	return (
 		<>
-			<div className="p-3 min-w-full bg-slate-800 mb-4">
+			<div className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll max-w-md break-words md:max-w-md">
 				{subMessages ? (
 					subMessages.map(element => {
 						return (
@@ -147,7 +143,9 @@ const Chat: React.FC = () => {
 					value="Send"
 					className=" bg-amber-500 p-2 rounded ml-2"
 				/>
-				{mutation.error && <p>Error: {mutation.error.message}</p>}
+				{addMessage.error && (
+					<p>Error: {addMessage.error.message}</p>
+				)}
 			</form>
 		</>
 	);
