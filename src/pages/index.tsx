@@ -102,19 +102,7 @@ const Chat: React.FC = () => {
 		},
 	});
 
-	const scrollToBottom = () => {
-		console.log(chatRef.current);
-		if (chatRef.current) {
-			chatRef.current.scrollIntoView({ behavior: "smooth" });
-			console.log("scrolled");
-		}
-	};
-
-	const addMessage = trpc.useMutation(["example.add"], {
-		onSuccess() {
-			scrollToBottom();
-		},
-	});
+	const addMessage = trpc.useMutation(["example.add"]);
 	const onAdd = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
@@ -129,6 +117,7 @@ const Chat: React.FC = () => {
 					setMessages("");
 					console.log("success");
 					chatRef.current?.scrollIntoView();
+					
 				},
 			}
 		);
