@@ -7,10 +7,10 @@
 		"dev:next": "next dev",
 		"dev": "run-p dev:*",
 		"build:2-prisma": "prisma generate",
-		"build:3-next": "cross-env NODE_ENV=production next build",
+		"build:3-next": "next build",
 		"build:4-server": "tsc --project tsconfig.server.json",
 		"build": "run-s build:*",
-		"start": "cross-env NODE_ENV=production node dist/server/prodServer.js && next start -p $PORT",
+		"start": "node dist/server/prodServer.js && next start -p $PORT",
 		"lint": "next lint",
 		"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
 	},
