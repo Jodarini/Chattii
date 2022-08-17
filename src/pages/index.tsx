@@ -105,6 +105,7 @@ const Chat: React.FC = () => {
 	const onAdd = async (
 		e: React.FormEvent<HTMLFormElement>
 	) => {
+
 		e.preventDefault();
 		await addMessage.mutate({
 			content: messages,
@@ -115,7 +116,7 @@ const Chat: React.FC = () => {
 
 	return (
 		<>
-			<div className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll max-w-md break-words md:max-w-md">
+			<div className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-max break-words md:max-w-md">
 				{subMessages ? (
 					subMessages.map(element => {
 						return (
@@ -137,6 +138,7 @@ const Chat: React.FC = () => {
 					value={messages}
 					onChange={e => setMessages(e.target.value)}
 					className="text-slate-800 w-full"
+					disabled={!session || messages.length === 0}
 				/>
 				<input
 					type="submit"
