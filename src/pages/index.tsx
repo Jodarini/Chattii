@@ -83,7 +83,7 @@ const Home: NextPage = () => {
 
 const Chat: React.FC = () => {
 	const messageRef = useRef<HTMLDivElement>(null);
-	const chatRef = useRef<HTMLDivElement>(null);
+	const chatRef = useRef<HTMLInputElement>(null);
 	const { data: session } = useSession();
 	const [messages, setMessages] = useState<string>("");
 
