@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import { trpc } from "../utils/trpc";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image, { ImageLoader } from "next/image";
 import {
 	useSession,
@@ -96,6 +96,10 @@ const Chat: React.FC = () => {
 		return messages2.data;
 	});
 
+	useEffect(() => {
+		chatRef.current?.scrollIntoView();
+	}, [chatRef]);
+
 	trpc.useSubscription(["example.onAdd"], {
 		onNext(message) {
 			setSubMessages(msgs => [...(msgs || []), message]);
@@ -118,7 +122,6 @@ const Chat: React.FC = () => {
 					console.log("chatref", chatRef);
 
 					console.log("chatref current", chatRef.current);
-					chatRef.current?.scrollIntoView({ block: "end" });
 				},
 			}
 		);
@@ -139,7 +142,7 @@ const Chat: React.FC = () => {
 						);
 					})
 				) : (
-					<p>Loading..</p>
+					<p>Send a message!</p>
 				)}
 			</div>
 			<form onSubmit={onAdd} className="w-full flex">
