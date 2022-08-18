@@ -24,7 +24,7 @@ const HomeComponent = () => {
 	if (session) {
 		return (
 			<div className="flex flex-col w-full h-full items-center justify-center gap-1">
-				<div className="flex flex-row items-center justify-center gap-1">
+				<div className="flex flex-col items-center justify-center gap-1">
 					Hello {session.user?.name}!
 					<Image
 						className="rounded-full "
@@ -36,7 +36,7 @@ const HomeComponent = () => {
 					/>
 				</div>
 				<button
-					className="p-2 rounded m-3 w-24 absolute top-0 "
+					className="p-2 rounded m-3 w-24 absolute top-0 right-0"
 					onClick={() => signOut()}
 				>
 					Sign out
@@ -104,8 +104,7 @@ const Chat: React.FC = () => {
 
 	useEffect(() => {
 		if (chatRef.current) {
-			console.log('scroll to bottom');
-			chatRef.current.scrollIntoView({ behavior: "smooth" });
+			chatRef.current.scrollIntoView();
 		}
 	}, [subMessages]);
 
@@ -122,9 +121,6 @@ const Chat: React.FC = () => {
 			{
 				onSuccess: () => {
 					setMessages("");
-					console.log("chatref", chatRef);
-
-					console.log("chatref current", chatRef.current);
 				},
 			}
 		);
