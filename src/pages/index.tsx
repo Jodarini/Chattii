@@ -82,6 +82,7 @@ const Home: NextPage = () => {
 };
 
 const Chat: React.FC = () => {
+	const messageRef = useRef<HTMLDivElement>(null);
 	const chatRef = useRef<HTMLDivElement>(null);
 	const { data: session } = useSession();
 	const [messages, setMessages] = useState<string>("");
@@ -103,8 +104,8 @@ const Chat: React.FC = () => {
 	});
 
 	useEffect(() => {
-		if (chatRef.current) {
-			chatRef.current.scrollIntoView();
+		if (messageRef.current) {
+			messageRef.current.scrollIntoView();
 		}
 	}, [subMessages]);
 
@@ -121,6 +122,7 @@ const Chat: React.FC = () => {
 			{
 				onSuccess: () => {
 					setMessages("");
+					chatRef.current?.focus();
 				},
 			}
 		);
@@ -134,7 +136,7 @@ const Chat: React.FC = () => {
 						return (
 							<p key={element.id}>
 								{element.userName + ": "}
-								<span ref={chatRef} className=" text-gray-400 ">
+								<span ref={messageRef} className=" text-gray-400 ">
 									{element.content + "\n"}
 								</span>
 							</p>
@@ -152,6 +154,7 @@ const Chat: React.FC = () => {
 					className="text-slate-800 w-full"
 				/>
 				<input
+					ref={chatRef}
 					type="submit"
 					value="Send"
 					className=" bg-amber-500 p-2 rounded ml-2"
