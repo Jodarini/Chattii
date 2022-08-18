@@ -23,7 +23,7 @@ const HomeComponent = () => {
 
 	if (session) {
 		return (
-			<div className="flex flex-col w-full h-full">
+			<div className="flex flex-col w-full h-full items-center justify-center gap-1">
 				<div className="flex flex-row items-center justify-center gap-1">
 					Hello {session.user?.name}!
 					<Image
@@ -36,7 +36,7 @@ const HomeComponent = () => {
 					/>
 				</div>
 				<button
-					className=" bg-amber-500 p-2 rounded m-3"
+					className="p-2 rounded m-3 w-24 absolute top-0 "
 					onClick={() => signOut()}
 				>
 					Sign out
@@ -132,7 +132,7 @@ const Chat: React.FC = () => {
 
 	return (
 		<>
-			<div className="p-3 min-w-full bg-slate-800 mb-4 overflow-scroll w-full h-full break-words md:max-w-md">
+			<div className="p-3 bg-slate-800 mb-4 overflow-scroll w-full h-full break-words md:max-w-md">
 				{subMessages ? (
 					subMessages.map(element => {
 						return (
