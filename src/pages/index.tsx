@@ -96,15 +96,18 @@ const Chat: React.FC = () => {
 		return messages2.data;
 	});
 
-	useEffect(() => {
-		chatRef.current?.scrollIntoView();
-	}, [chatRef]);
-
 	trpc.useSubscription(["example.onAdd"], {
 		onNext(message) {
 			setSubMessages(msgs => [...(msgs || []), message]);
 		},
 	});
+
+	useEffect(() => {
+		if (chatRef.current) {
+			console.log('scroll to bottom');
+			chatRef.current.scrollIntoView({ behavior: "smooth" });
+		}
+	}, [subMessages]);
 
 	const addMessage = trpc.useMutation(["example.add"]);
 	const onAdd = async (
