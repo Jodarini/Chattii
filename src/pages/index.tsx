@@ -115,8 +115,10 @@ const Chat: React.FC = () => {
 			{
 				onSuccess: () => {
 					setMessages("");
-					console.log("success");
-					chatRef.current?.scrollIntoView();
+					console.log("chatref", chatRef);
+
+					console.log("chatref current", chatRef.current);
+					chatRef.current?.scrollIntoView({ block: "end" });
 				},
 			}
 		);
