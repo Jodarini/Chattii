@@ -130,7 +130,7 @@ const Chat: React.FC = () => {
 
 	return (
 		<div className="flex flex-col h-[calc(100vh-210px)] w-full md:max-w-md">
-			<div className="p-3 bg-slate-800 mb-4 overflow-scroll w-full h-full break-words">
+			<div className="p-3 bg-slate-800 mb-4 w-full h-full break-words overflow-hidden">
 				{subMessages ? (
 					subMessages.map(element => {
 						return (
