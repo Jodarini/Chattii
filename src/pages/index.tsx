@@ -70,7 +70,7 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main className="container mx-auto flex flex-col items-center justify-center h-screen p-28">
+			<main className="container mx-auto flex flex-col items-center justify-center h-screen p-4">
 				<h1 className="text-5xl md:text-[5rem] leading-normal font-extrabold ">
 					Cha<span className="text-amber-500">tt</span>ii
 				</h1>
@@ -129,7 +129,7 @@ const Chat: React.FC = () => {
 	};
 
 	return (
-		<div className="flex flex-col h-[calc(100vh-210px)] w-full md:max-w-md">
+		<div className="flex flex-col h-[calc(100vh-240px)] w-full md:max-w-md">
 			<div className="p-3 bg-slate-800 mb-4 w-full h-full break-words overflow-hidden">
 				{subMessages ? (
 					subMessages.map(element => {
